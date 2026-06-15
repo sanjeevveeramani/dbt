@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: staging
+    database: dm2-bike-weather
+    schema: staging
+    tables:
+      - name: weather_bikes_joined
+        description: "Spark-processed joined weather and bike trip data"
+
+  - name: raw
+    database: dm2-bike-weather
+    schema: raw
+    tables:
+      - name: raw_weather
+        description: "Live weather data from Open-Meteo API"
+      - name: raw_bike_trips
+        description: "Citi Bike NYC trip data"

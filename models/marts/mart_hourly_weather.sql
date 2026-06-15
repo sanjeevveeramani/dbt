@@ -11,6 +11,6 @@ SELECT
     SUM(member_trips) AS total_member_trips,
     SUM(casual_trips) AS total_casual_trips,
     SUM(electric_trips) AS total_electric_trips
-FROM `dm2-bike-weather.staging.weather_bikes_joined`
+FROM {{ source('staging', 'weather_bikes_joined') }}
 GROUP BY borough, TIMESTAMP_TRUNC(hour, HOUR)
 ORDER BY borough, hour
