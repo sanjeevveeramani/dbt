@@ -20,7 +20,9 @@ SELECT
     ROUND(SAFE_DIVIDE(SUM(member_trips), SUM(trip_count)) * 100, 2) AS member_pct,
     ROUND(SAFE_DIVIDE(SUM(electric_trips), SUM(trip_count)) * 100, 2) AS electric_pct,
     ROUND(AVG(rush_hour_ratio) * 100, 2) AS rush_hour_pct,
-    ROUND(AVG(weekend_ratio) * 100, 2) AS weekend_pct
+    ROUND(AVG(weekend_ratio) * 100, 2) AS weekend_pct,
+    MAX(is_holiday) AS is_holiday,
+    ANY_VALUE(holiday_name) AS holiday_name
 FROM {{ source('staging', 'weather_bikes_joined') }}
 GROUP BY borough, TIMESTAMP_TRUNC(hour, HOUR)
 ORDER BY borough, hour

@@ -16,3 +16,5 @@ sources:
         description: "Live weather data from Open-Meteo API"
       - name: raw_bike_trips
         description: "Citi Bike NYC trip data"
+      - name: raw_holidays
+        description: "US Federal holidays 2026"

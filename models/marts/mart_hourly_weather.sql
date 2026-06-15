@@ -1,4 +1,8 @@
-{{ config(materialized='table', schema='marts') }}
+{{ config(
+    materialized='incremental',
+    schema='marts',
+    unique_key=['borough', 'hour']
+) }}
 
 SELECT
     borough,
@@ -12,5 +16,10 @@ SELECT
     SUM(casual_trips) AS total_casual_trips,
     SUM(electric_trips) AS total_electric_trips
 FROM {{ source('staging', 'weather_bikes_joined') }}
+
+{% if is_incremental() %}
+WHERE hour > (SELECT MAX(hour) FROM {{ this }})
+{% endif %}
+
 GROUP BY borough, TIMESTAMP_TRUNC(hour, HOUR)
 ORDER BY borough, hour
