@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: mart_hourly_weather
+    description: "Hourly weather and trip aggregations by borough"
+    columns:
+      - name: borough
+        tests:
+          - not_null
+      - name: hour
+        tests:
+          - not_null
+      - name: total_trips
+        tests:
+          - not_null
+
+  - name: mart_bike_trip_stats
+    description: "Trip statistics by borough, day of week, hour"
+    columns:
+      - name: borough
+        tests:
+          - not_null
+      - name: total_trips
+        tests:
+          - not_null
+
+  - name: mart_weather_bike_correlation
+    description: "Weather category impact on bike demand"
+    columns:
+      - name: borough
+        tests:
+          - not_null
+      - name: weather_category
+        tests:
+          - not_null
+      - name: total_trips
+        tests:
+          - not_null

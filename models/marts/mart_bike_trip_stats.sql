@@ -10,7 +10,9 @@ SELECT
     SUM(casual_trips) AS total_casual_trips,
     SUM(electric_trips) AS total_electric_trips,
     ROUND(SAFE_DIVIDE(SUM(member_trips), SUM(trip_count)) * 100, 2) AS member_pct,
-    ROUND(SAFE_DIVIDE(SUM(electric_trips), SUM(trip_count)) * 100, 2) AS electric_pct
-FROM `dm2-bike-weather.staging.weather_bikes_joined`
+    ROUND(SAFE_DIVIDE(SUM(electric_trips), SUM(trip_count)) * 100, 2) AS electric_pct,
+    ROUND(AVG(rush_hour_ratio) * 100, 2) AS rush_hour_pct,
+    ROUND(AVG(weekend_ratio) * 100, 2) AS weekend_pct
+FROM {{ source('staging', 'weather_bikes_joined') }}
 GROUP BY borough, TIMESTAMP_TRUNC(hour, HOUR), day_of_week, hour_of_day
 ORDER BY borough, hour
